@@ -70,6 +70,13 @@ Skills 生态正在爆发（Anthropic 官方插件市场、obra/superpowers 等�
 - **安装**：首次启动自动注册；`/plugin install github@claude-plugins-official`
 - **中文点评**：官方策展，质量与安全性最高的一批插件。装机先看这里，再去社区市场淘。✅ 已验证
 
+### Claude Code Mods：技能之下的新一层（机制说明，非技能条目）
+
+- **简介**：Anthropic 2026-10-01 随 Claude Code v2.1.287 发布的官方新机制。一句话区分是 "Skills instruct. Mods decide."：技能是模型读的 Markdown 指令，mod 是直接改写 Agent 管线行为的 TypeScript 事件钩子——可改写提示词、拦截/重试工具调用、批准或拒绝权限请求、给工具输出脱敏、绘制自定义 UI。Mods 随插件分发，用 `/plugin` 安装。官方文档：[Mods overview](https://code.claude.com/docs/en/plugins/mods/overview)；发布公告：[Customize Claude Code with mods](https://claude.com/blog/claude-code-mods)
+- **适用平台**：Claude Code（CLI 终端、桌面应用 Code 标签页；VS Code 扩展聊天面板仅钩子生效、无界面绘制；桌面应用 WSL 会话不加载）。Mods 本身是 Claude Code 专属机制，**不满足本仓库「跨平台通用」收录标准**，此处仅作机制说明，不计为技能条目。
+- **安装**：`/plugin install <插件名>@<市场>`（会话内）或 `claude plugin install <插件名>@<市场>`（shell）；安装前建议先用 `claude plugin validate <目录>` 查看该 mod 会触达哪些事件与权限
+- **中文点评**：官方把内置功能（`/diff`、agents.md 加载、telemetry）都改写成了 mods，说明这是底层架构而非实验特性。官方示例 token-weather（上下文用量天气条）、blast-radius（危险命令拦截确认）、replay-theater（逐条回放 diff）展示了能力范围。风险面必须说清楚：**mods 默认不沙箱隔离**，拥有和 Claude Code 相同的机器权限（读写文件、启动进程、读取环境变量里的密钥、可预先批准工具调用）——只从可信来源安装，企业版可用内置 `sec-default` mod 兜底。✅ 已验证（事实来自官方文档与发布公告，2026-10-06 核验；mod 行为本身需本地 Claude Code v2.1.287+，本环境未实际安装验证）
+
 ---
 
 ## 💻 编程开发 / Coding
