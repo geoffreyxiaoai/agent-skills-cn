@@ -65,14 +65,14 @@ Skills 生态正在爆发（Anthropic 官方插件市场、obra/superpowers 等�
 
 ### claude-plugins-official（官方插件市场）
 
-- **简介**：随 Claude Code 自动注册的官方市场，291 个插件（截至 2026-09），含 GitHub / Figma / Slack / Sentry 集成、安全审查与多语言 LSP 服务器。Anthropic's curated plugin marketplace, auto-registered in Claude Code.
+- **简介**：随 Claude Code 自动注册的官方市场，315 个插件（截至 2026-10-08；此前 291 个，官方持续扩容），含 GitHub / Figma / Slack / Sentry 集成、安全审查与多语言 LSP 服务器。Anthropic's curated plugin marketplace, auto-registered in Claude Code.
 - **适用平台**：Claude Code
 - **安装**：首次启动自动注册；`/plugin install github@claude-plugins-official`
 - **中文点评**：官方策展，质量与安全性最高的一批插件。装机先看这里，再去社区市场淘。✅ 已验证
 
 ### Claude Code Mods：技能之下的新一层（机制说明，非技能条目）
 
-- **简介**：Anthropic 2026-10-01 随 Claude Code v2.1.287 发布的官方新机制。一句话区分是 "Skills instruct. Mods decide."：技能是模型读的 Markdown 指令，mod 是直接改写 Agent 管线行为的 TypeScript 事件钩子——可改写提示词、拦截/重试工具调用、批准或拒绝权限请求、给工具输出脱敏、绘制自定义 UI。Mods 随插件分发，用 `/plugin` 安装。官方文档：[Mods overview](https://code.claude.com/docs/en/plugins/mods/overview)；发布公告：[Customize Claude Code with mods](https://claude.com/blog/claude-code-mods)
+- **简介**：Anthropic 2026-10-01 随 Claude Code v2.1.287 发布的官方新机制。一句话区分是 "Skills instruct. Mods decide."：技能是模型读的 Markdown 指令，mod 是直接改写 Agent 管线行为的 TypeScript 事件钩子——可改写提示词、拦截/重试工具调用、批准或拒绝权限请求、给工具输出脱敏、绘制自定义 UI。Mods 随插件分发，用 `/plugin` 安装。官方文档：[Mods overview](https://code.claude.com/docs/en/plugins/mods/overview)；发布公告：[Customize Claude Code with mods](https://claude.com/resources/articles/claude-code-mods)
 - **适用平台**：Claude Code（CLI 终端、桌面应用 Code 标签页；VS Code 扩展聊天面板仅钩子生效、无界面绘制；桌面应用 WSL 会话不加载）。Mods 本身是 Claude Code 专属机制，**不满足本仓库「跨平台通用」收录标准**，此处仅作机制说明，不计为技能条目。
 - **安装**：`/plugin install <插件名>@<市场>`（会话内）或 `claude plugin install <插件名>@<市场>`（shell）；安装前建议先用 `claude plugin validate <目录>` 查看该 mod 会触达哪些事件与权限
 - **中文点评**：官方把内置功能（`/diff`、agents.md 加载、telemetry）都改写成了 mods，说明这是底层架构而非实验特性。官方示例 token-weather（上下文用量天气条）、blast-radius（危险命令拦截确认）、replay-theater（逐条回放 diff）展示了能力范围。风险面必须说清楚：**mods 默认不沙箱隔离**，拥有和 Claude Code 相同的机器权限（读写文件、启动进程、读取环境变量里的密钥、可预先批准工具调用）——只从可信来源安装，企业版可用内置 `sec-default` mod 兜底。✅ 已验证（事实来自官方文档与发布公告，2026-10-06 核验；mod 行为本身需本地 Claude Code v2.1.287+，本环境未实际安装验证）
@@ -108,6 +108,20 @@ Skills 生态正在爆发（Anthropic 官方插件市场、obra/superpowers 等�
 - **安装**：`npx skills add mattpocock/skills`，再运行 `/setup-matt-pocock-skills`
 - **中文点评**：生态中 star 最高的技能仓库之一，社区口碑最硬的跨平台技能集。🧪 待实测
 
+### addyosmani/agent-skills 🧪
+
+- **简介**：Addy Osmani（Chrome 团队工程师）开源的 25 个生产级工程技能：spec→规划→构建→测试→评审→交付的完整工作流技能包。25 production-grade engineering workflow skills, from spec to ship.（102.9k ⭐，截至 2026-10-08）
+- **适用平台**：Claude Code、Cursor、Codex、Gemini CLI、OpenCode、Windsurf、GitHub Copilot、Kiro、Antigravity 等（文档覆盖 10+ 平台）
+- **安装**：`npx skills add addyosmani/agent-skills`（全量）或加 `--skill <技能名>` 单装；Claude Code 也可用 `/plugin install agent-skills@addy-agent-skills`
+- **中文点评**：本轮巡检最大的遗漏补上——10 万+ star 的工程流技能包，安装文档是见过覆盖面最广的一批；「小步快走、完整闭环」的流程观和 superpowers 互补。🧪 待实测
+
+### JuliusBrussee/caveman 🧪
+
+- **简介**：省 token 的「穴居人说话」技能 + 本地压缩代理：让 Agent 用极简语言输出（少废话降成本），附带输入压缩代理（作者自称缩减 33.2%，登顶过 HN 与 GitHub Trending）。Token-saving "caveman voice" skill + local input-shrinking proxy.（110.4k ⭐，截至 2026-10-08）
+- **适用平台**：Claude Code、Codex、Gemini CLI、Cursor、Windsurf、Cline、Copilot 等 30+（文档列全）
+- **安装**：`npx skills add JuliusBrussee/caveman -g`，或 `gemini extensions install`，或 curl 脚本安装
+- **中文点评**：把「少说废话」做成可安装技能的脑洞派，压缩率数字是作者自测、待独立验证；长上下文省钱的思路值得关注。🧪 待实测
+
 ### VersoXBT/claude-recommended-skills
 
 - **简介**：基于 Anthropic 团队《Lessons from Building Claude Code》提炼的 9 个生产级技能：4 轮代码评审、CI/CD、OODA 故障排查、基础设施运维、安全查库分析、业务流程自动化、代码脚手架等。9 production-ready skills distilled from Anthropic's own engineering lessons.（3 ⭐，截至 2026-10-07 —— star 偏低，收录待复核）
@@ -124,12 +138,26 @@ Skills 生态正在爆发（Anthropic 官方插件市场、obra/superpowers 等�
 - **安装**：见仓库 README
 - **中文点评**：数量最多的一批开发者技能合集之一，覆盖全栈场景。🧪 待实测
 
+### OneWave-AI/claude-skills 🧪
+
+- **简介**：229 个单文件技能大集合（销售/营销/设计/工程/日常事务），每个技能零依赖、单个 SKILL.md。229 single-file, zero-dependency skills across sales, marketing, design, engineering and everyday tasks.（323 ⭐，截至 2026-10-08）
+- **适用平台**：Claude Code、Codex CLI（README 记录；PR 称另支持 Cursor、Gemini）
+- **安装**：`claude skill install OneWave-AI/claude-skills/<技能名>`，或 clone 到 `~/.claude/skills` / `~/.codex/skills`
+- **中文点评**：「一个 repo 一座超市」式合集，按需单装很灵活；质量参差是大合集的通病，装前先看技能的文档厚度。🧪 待实测
+
 ### samber/cc-skills-golang 🧪
 
 - **简介**：Golang 专用 Agent 技能合集（文档、测试、代码规范等）。Agentic skills collection for Golang projects.（3.4k ⭐）
 - **适用平台**：Claude Code
 - **安装**：见仓库 README
 - **中文点评**：Go 生态少见的技能合集，Gopher 值得一看。🧪 待实测
+
+### fishzjp/qa-skills 🧪
+
+- **简介**：中文优先的 12 技能 QA 工程套件（需求分析/测试策略/用例生成/自动化/缺陷分析/回归/报告），纯 Markdown 零运行时，作者公开了实测收益数据。12-skill QA engineering suite with published measured gains.（33 ⭐，截至 2026-10-08；中文社区）
+- **适用平台**：Claude Code、Cursor、Codex
+- **安装**：`npx skills add fishzjp/qa-skills --skill '*'`（支持 70+ hosts）
+- **中文点评**：QA 是技能生态里少见的垂直方向，中文优先对国内团队友好；作者敢晒收益数据，先看为敬。🧪 待实测
 
 ### levy-n/claude-useful-skills 🧪
 
@@ -144,6 +172,13 @@ Skills 生态正在爆发（Anthropic 官方插件市场、obra/superpowers 等�
 - **适用平台**：Claude Code、Codex CLI、任意支持 SKILL.md 的 agent
 - **安装**：`npx skills add Leonxlnx/unlazy`，触发词 `/unlazy tree 5 <任务>`
 - **中文点评**：长任务编排/可靠性的差异化条目，「完工必须自证而非口头承诺」值得一试。🧪 待实测
+
+### alapha888/session-handoff-kit 🧪
+
+- **简介**：会话上下文交接技能：context 快满前生成结构化 handoff 工件，下一会话无缝续跑。Structured session-handoff artifacts for long-running work.（新入选 sickn33/agentic-awesome-skills，2026-10-05）
+- **适用平台**：Claude Code、Cursor、Codex
+- **安装**：将 SKILL.md 放入 `.agent/skills/`（或见源仓库说明；npx 安装路径未确认）
+- **中文点评**：长会话的「断点续传」，和 unlazy 的验收台账是天然搭档；安装路径建议先看源仓库再定。🧪 待实测
 
 ### EpicGames/unreal-engine-skills-for-claude-code-plugin 🧪
 
@@ -190,6 +225,13 @@ Skills 生态正在爆发（Anthropic 官方插件市场、obra/superpowers 等�
 - **安装**：`npx skills add tt-a1i/archify -g`
 - **中文点评**：登顶过 GitHub Trending 周榜，架构可视化是文档/设计场景的高价值补充。🧪 待实测
 
+### Qiuner/birdview 🧪
+
+- **简介**：架构评审技能：pre-coding 阶段生成项目架构图 + 约束评审 + 变更范围确认，输出可交互独立 HTML；中英双语文档，中文社区作者。Pre-coding architecture review with interactive HTML output.（720 ⭐，截至 2026-10-08）
+- **适用平台**：Codex、Claude Code、DeepSeek Harness
+- **安装**：`npx skills add Qiuner/birdview --skill birdview`
+- **中文点评**：和 archify 同赛道但更「评审」向（约束 + 变更范围确认），中英双语文档对中文用户友好。🧪 待实测
+
 ### levyn（svg-logo-designer，见 claude-useful-skills）🧪
 
 - **简介**：专业 SVG logo 生成技能，输出多版生产级标志。Generate multiple production-grade logo variants.
@@ -231,6 +273,13 @@ Skills 生态正在爆发（Anthropic 官方插件市场、obra/superpowers 等�
 - **适用平台**：Claude Code（插件市场）及任意 skills.sh 兼容 agent
 - **安装**：`npx skills add browserbase/skills`
 - **中文点评**：官方出品，网页自动化是技能生态的空白区之一，权威性高。🧪 待实测
+
+### fujibee/agmsg 🧪
+
+- **简介**：跨厂商 CLI agent 互联：Claude Code / Codex / Gemini CLI / Copilot CLI 等会话通过本地 SQLite 共享总线互发消息、组队协作，无守护进程。Cross-vendor CLI agent team messaging over a shared local SQLite bus.（1,541 ⭐，截至 2026-10-08；v1.4.0 新增 Slack 扩展）
+- **适用平台**：Claude Code、Codex、Gemini CLI、Copilot CLI、Antigravity、OpenCode
+- **安装**：`npx agmsg`，或 `/plugin marketplace add fujibee/agmsg`，或 install.sh
+- **中文点评**：多 agent 协作的「聊天室」思路——不同厂商 agent 组队干活；SQLite 总线无守护进程的设计很巧。🧪 待实测
 
 ### obra/private-journal-mcp 🧪
 
